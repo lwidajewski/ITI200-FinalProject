@@ -47,21 +47,37 @@
             <div class="row">
                 <!--Daily goals-->
                 <div class="col-sm-4">
-                    <h2>Daily Goals</h2>
-                    <hr>
-                    <!--content ends up here-->
-                    <div id="list-dailyGoals"></div>
-                    <!--DAILY buttons-->
-                    <div>
-                        <br>
-                        <!--Add new daily goal form-->
-                        <form id="form-dailyGoals">
-                            <!--Add button-->
-                            <input class="form-control-sm" type="text" placeholder="Add daily goal" id="dailyTextInput" required>
-                            <button class="btn btn-primary btn-sm" type="submit" id="addDailyBtn">Add</button>
-                            <!--Clear button-->
-                            <button class="btn btn-danger btn-sm" type="button" id="clearDailyBtn">Clear Completed</button>
-                        </form>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Daily Goals</h2>
+                        </div>
+                        <div class="card-body">
+
+
+                            <div class="card">
+                                <div class="card-header"><strong>Goal Name</strong></div>
+                                <div class="card-body">
+                                    Provide a short description attached to your goal.
+                                    <hr>
+
+                                    <div class="d-flex justify-content-center align-items-center" style="max-width: 50%; margin:auto;">
+                                        <strong><p style="padding-right:5px">Days:</p></strong>
+                                        <div id="daymarker" class="p-1 mb-2 bg-light"><strong>MO</strong></div>
+                                        <div id="daymarker" class="p-1 mb-2 bg-light"><strong>TU</strong></div>
+                                        <div id="daymarker" class="p-1 mb-2 bg-light"><strong>WE</strong></div>
+                                        <div id="daymarker" class="p-1 mb-2 bg-light"><strong>TH</strong></div>
+                                        <div id="daymarker" class="p-1 mb-2 bg-light"><strong>FR</strong></div>
+                                        <div id="daymarker" class="p-1 mb-2 bg-light"><strong>SA</strong></div>
+                                        <div id="daymarker" class="p-1 mb-2 bg-light"><strong>SU</strong></div>
+                                    </div>
+                                    <div class="d-flex justify-content-center align-items-center" style="max-width: 75%; margin:auto;">
+                                        <strong><p>Date to Complete: 1/11/26</p></strong>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
                     </div>
                 </div>
                 <!--Short-term goals-->

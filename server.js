@@ -13,21 +13,21 @@ app.use(express.static('public'));
 app.use(bodyParser.json());
 
 // connect to database
-const pool = new Pool({
+/*const pool = new Pool({
     user: 'primary',
     host: 'dpg-d4noqiv5r7bs73c48s50-a',
     database: 'itidb',
     password:'hf7JmN2DpiCwmcb8r2yRXMs34LL4y8hR',
     port: 5432,
-});
+});*/
 
-/*const pool = new Pool({
+const pool = new Pool({
     user: 'postgres',
     host: 'localhost',
     database: 'postgres',
     password:'toby',
     port: 5432,
-});*/
+});
 
 
 app.get("/api/viewGoals", (req, res) => {
