@@ -157,14 +157,14 @@ app.post("/api/habits/analyze", async (req, res) => {
 // rss feeds
 app.get('/api/feed', async (req, res) => {
     try {
-        const feed = await parser.parseURL('lifehack.org/feed');
+        const feed = await parser.parseURL('https://lifehack.org/feed');
 
         const itemsWithThumbnails = feed.items.map(item => {
             const html = item['content:encoded'] || item.content || item.summary || '';
 
             // get first image src
             const imgMatch = html.match(/<img[^>]+src="([^">]+)"/i);
-            const thumbnail = imgMatch ? imgMatch[1] : 'https://placehold.co/600x400';
+            const thumbnail = imgMatch ? imgMatch[1] : 'images/placeholder.png';
 
             return {
                 title: item.title?._ || item.title,
