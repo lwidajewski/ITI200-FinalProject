@@ -17,7 +17,7 @@ const pool = new Pool({
     user: 'primary',
     host: 'localhost',
     database: 'itidb',
-    password:'itidbtoby',
+    password:'hf7JmN2DpiCwmcb8r2yRXMs34LL4y8hR',
     port: 5432,
 });
 
