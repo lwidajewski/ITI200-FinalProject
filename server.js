@@ -1,5 +1,8 @@
 require('dotenv').config();
 const express = require("express");
+const RSSParser = require('rss-parser');
+const parser = new RSSParser();
+const router = express.Router();
 const Pool = require('pg').Pool;
 const bodyParser = require("body-parser");
 const { generateResponse } = require("./openaiService");
@@ -14,7 +17,7 @@ const pool = new Pool({
     user: 'postgres',
     host: 'localhost',
     database: 'postgres',
-    password:'postgres',
+    password:'toby',
     port: 5432,
 });
 
@@ -150,6 +153,36 @@ app.post("/api/habits/analyze", async (req, res) => {
         });
     }
 });
+
+// rss feeds
+app.get('/api/feed', async (req, res) => {
+    try {
+        const feed = await parser.parseURL('https://www.bridgestorecovery.com/blog/feed/');
+
+        const itemsWithThumbnails = feed.items.map(item => {
+            const html = item['content:encoded'] || item.content || item.summary || '';
+
+            // get first image src
+            const imgMatch = html.match(/<img[^>]+src="([^">]+)"/i);
+            const thumbnail = imgMatch ? imgMatch[1] : 'https://placehold.co/600x400';
+
+            return {
+                title: item.title?._ || item.title,
+                link: item.link,
+                summary: item.summary || item.contentSnippet || '', thumbnail,
+                updated: item.isoDate
+            }
+        })
+
+    res.json({ items: itemsWithThumbnails });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Failed to load feed' });
+    }
+});
+
+module.exports = router;
+
 
 const PORT = 80;
 app.listen(PORT, () => {

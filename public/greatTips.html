@@ -45,9 +45,7 @@
         <!-- Bootstrap JS -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
         <!--Masonry for card columns-->
-        <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" async></script>
-        <!-- Custom JS -->
-        <script src="main.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" async></script>>
 
         <!--Body Contents-->
         <div class="container mt-4">
@@ -57,134 +55,121 @@
                 <!-- Goals Card -->
                 <div class="col-10">
                     <h2>Great Tips:</h2>
-                    <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+                    <p id="headertext">This page contains articles with great tips, tricks, and ideas for your own self care. These sources are taken from various trusted sources!</p>
                     <hr>
-                    <div class="card center-card" style="width: 100%;">
-                        <div class="card-header text-bg-secondary">
-                            <strong>Featured Article</strong>
-                        </div>      
-                        <div class="row article-container-wide align-items-center">
-                            <!--Thumbnail-->
-                            <div class="col-4">
-                                <img class="card-img-top" src="https://placehold.co/600x400" alt="article image from rss feed">
-                            </div>
-                            <!--Contents-->
-                            <div class="col-8">
-                                <h5><strong>Lorem Ipsum</strong></h5>
-                                <hr>
-                                <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
-                            </div>
-                        </div>   
-                    </div>
-                    
-                    <div class="card center-card" style="width: 100%;">
-                        <div class="card-header text-bg-info">
-                            <strong>Featured Resource</strong>
-                        </div>      
-                        <div class="row article-container-wide align-items-center">
-                            <!--Contents-->
-                            <div class="col-8">
-                                <h5><strong>Lorem Ipsum</strong></h5>
-                                <hr>
-                                <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
-                            </div>
-                            <!--Thumbnail-->
-                            <div class="col-4">
-                                <img class="card-img-top" src="https://placehold.co/600x400" alt="article image from rss feed">
-                            </div>
-                        </div>   
-                    </div>
-                    <hr>
-                    <h3 class="d-flex justify-content-center">Additional Articles</h3>
+                    <div id = "articles">
+                        <script>
+                            async function loadFeatured() {
+                                const res = await fetch('/api/feed');
+                                const data = await res.json();
+                                const parent = document.getElementById('articles')
+                                const header = document.getElementById('headertext')
+                                const first = data.items[0];
+                                const second = data.items[1];
 
-                    <!--Additional articles-->
-                    <div class="row additional-articles" data-masonry='{"percentPosition": true }'>
-                        <div class="card col-4" style="display: inline-block; margin-bottom: 10px;">     
-                            <!--Thumbnail-->
-                            <img class="card-img-top" src="https://placehold.co/600x400" alt="article image from rss feed">
-                            <div class="row article-container align-items-center">
-                                <!--Contents-->
-                                <div>
-                                    <h5><strong>Lorem Ipsum</strong></h5>
-                                    <hr>
-                                    <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+                                const article = document.createElement('div');
+                                article.classList.add('card', 'center-card');
+                                article.style.width = "100%";
+
+                                article.innerHTML = `
+                                <div class="card-header text-bg-info">
+                                    <a href="${first.link}"><strong>Featured Article: ${first.title}</strong></a>
                                 </div>
-
-                            </div>   
-                        </div>
-
-                        <div class="card col-4" style="display: inline-block;margin-bottom: 10px;">     
-                            <!--Thumbnail-->
-                            <img class="card-img-top" src="https://placehold.co/600x400" alt="article image from rss feed">
-                            <div class="row article-container align-items-center">
-                                <!--Contents-->
-                                <div>
-                                    <h5><strong>Lorem Ipsum</strong></h5>
-                                    <hr>
-                                    <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+                                <div class="card-body">
+                                    <div class="row align-items-center">
+                                        <div class="col-8">
+                                            <h5><strong>${first.title}</strong></h5>
+                                            <hr>
+                                            <p>${first.summary || 'No summary available'}</p>
+                                        </div>
+                                        <div class="col-4" style="overflow:hidden;">
+                                            <img class="img-fluid card-img-top" src="${first.thumbnail}" alt="article image from rss feed" style="height: 200px; width: 100%; object-fit: cover;">
+                                        </div>
+                                    </div>
                                 </div>
+                                `;
 
-                            </div>   
-                        </div>
+                                parent.prepend(article);
+                                console.log("Card appended:", article);
 
-                        <div class="card col-4" style="display: inline-block;margin-bottom: 10px;">     
-                            <!--Thumbnail-->
-                            <img class="card-img-top" src="https://placehold.co/600x400" alt="article image from rss feed">
-                            <div class="row article-container align-items-center">
-                                <!--Contents-->
-                                <div>
-                                    <h5><strong>Lorem Ipsum</strong></h5>
-                                    <hr>
-                                    <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+                                const articleB = document.createElement('div');
+                                articleB.classList.add('card', 'center-card');
+                                articleB.style.width = "100%";
+                                articleB.innerHTML = `
+                                <div class="card-header text-bg-info">
+                                    <a href="${second.link}"><strong>Featured Article: ${second.title}</strong></a>
                                 </div>
-
-                            </div>   
-                        </div>
-
-                        <div class="card col-4" style="display: inline-block;margin-bottom: 10px;">     
-                            <!--Thumbnail-->
-                            <img class="card-img-top" src="https://placehold.co/600x400" alt="article image from rss feed">
-                            <div class="row article-container align-items-center">
-                                <!--Contents-->
-                                <div>
-                                    <h5><strong>Lorem Ipsum</strong></h5>
-                                    <hr>
-                                    <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+                                <div class="card-body">
+                                    <div class="row align-items-center">
+                                        <div class="col-4" style="overflow:hidden;">
+                                            <img class="img-fluid card-img-top" src="${second.thumbnail}" alt="article image from rss feed" style="height: 200px; width: 100%; object-fit: cover;">
+                                        </div>
+                                        <div class="col-8">
+                                            <h5><strong>${second.title}</strong></h5>
+                                            <hr>
+                                            <p>${second.summary || 'No summary available'}</p>
+                                        </div>
+                                    </div>
                                 </div>
+                                `;
 
-                            </div>   
-                        </div>
+                                parent.prepend(articleB);
+                                console.log("Card appended:", articleB);
+                            }
 
-                        <div class="card col-4" style="display: inline-block;margin-bottom: 10px;">     
-                            <!--Thumbnail-->
-                            <img class="card-img-top" src="https://placehold.co/600x400" alt="article image from rss feed">
-                            <div class="row article-container align-items-center">
-                                <!--Contents-->
-                                <div>
-                                    <h5><strong>Lorem Ipsum</strong></h5>
-                                    <hr>
-                                    <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
-                                </div>
+                            loadFeatured();
+                        </script>  
+                            <hr>
+                            <h3 class="d-flex justify-content-center">Additional Articles</h3>
 
-                            </div>   
-                        </div>
+                            <!--Additional articles-->
+                            <div class="row additional-articles" data-masonry='{"percentPosition": true }' id="articles"></div>
+                            <script>
+                            async function loadArticles() {
+                                try {
+                                    const res = await fetch('/api/feed');
+                                    const data = await res.json();
+                                    const parent = document.getElementById('articles');
 
-                        <div class="card col-4" style="display: inline-block;margin-bottom: 10px;">     
-                            <!--Thumbnail-->
-                            <img class="card-img-top" src="https://placehold.co/600x400" alt="article image from rss feed">
-                            <div class="row article-container align-items-center">
-                                <!--Contents-->
-                                <div>
-                                    <h5><strong>Lorem Ipsum</strong></h5>
-                                    <hr>
-                                    <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
-                                </div>
+                                    data.items.slice(2).forEach(item => {
+                                        // Create card element
+                                        const card = document.createElement('div');
+                                        card.classList.add('card', 'col-4');
+                                        card.style.display = 'inline-block';
+                                        card.style.marginBottom = '10px';
 
-                            </div>   
+                                        card.innerHTML = `
+                                            <!--Thumbnail-->
+                                            <img class="card-img-top" style="height: 100px; width: 90%; object-fit: cover; display: block; margin-left: auto; margin-right: auto;" src="${item.thumbnail || 'https://placehold.co/600x400'}" alt="article image from rss feed">
+                                            
+                                            <div class="row article-container align-items-center p-3">
+                                                <!--Contents-->
+                                                <div>
+                                                    <h5><strong>${item.title}</strong></h5>
+                                                    <hr>
+                                                    <p>${item.summary || 'No summary available'}</p>
+                                                    <a href="${item.link}" target="_blank" class="btn btn-sm btn-primary mt-2">Read More</a>
+                                                </div>
+                                            </div>
+                                        `;
+
+                                        parent.appendChild(card);
+                                    });
+
+                                    // Reload masonry layou if needed.
+                                    
+
+                                } catch (err) {
+                                    console.error('Failed to load RSS feed:', err);
+                                    parent.innerHTML = `<p class="text-danger">Failed to load articles. Please try again later.</p>`;
+                                }
+                            }
+
+                            // Load RSS feed items on page load
+                            loadArticles();
+                            </script>
                         </div>
                     </div>
-
-                </div>
                 <!-- Right Spacing -->
                 <div class="col-1"></div>
             </div> 
