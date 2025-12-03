@@ -5,9 +5,63 @@ document.addEventListener('DOMContentLoaded', function() {
     const formResult = document.getElementById('formResponse');
     const rankedHabits = document.getElementById('rankedHabits');
 
+    //Add Additional habit.
+    document.getElementById("addHabit").addEventListener("click", function () {
+        const input = document.getElementById("addtlHabit");
+        const value = input.value;
+
+        if (value === "") return; // Ignore empty input
+
+        const NewHabit = document.createElement('li');
+        NewHabit.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-center');
+        NewHabit.style.width = "100%";
+        NewHabit.innerHTML = `
+            ${value} <span class="bi bi-arrows-move"></span>
+        `;
+
+        NewHabit.setAttribute('data-habit', value);
+
+        document.getElementById("rankedHabits").appendChild(NewHabit);
+
+    });
     // setup the drag and drop thing for ranking habits
     if (rankedHabits && window.Sortable) {
-        Sortable.create(rankedHabits, { animation: 150 });
+        const trash = document.getElementById('rmvHabit');
+        
+        trash.addEventListener('dragenter', () => trash.classList.add('drag-hover'));
+        trash.addEventListener('dragleave', () => trash.classList.remove('drag-hover'));
+        trash.addEventListener('drop', () => trash.classList.remove('drag-hover'));
+
+        // maintain custom dragover animation
+        trash.addEventListener('dragover', (e) => {
+            e.preventDefault(); 
+        });
+
+        Sortable.create(rankedHabits, {
+            animation: 150, 
+
+            onEnd(evt) {
+                const trashBounds = trash.getBoundingClientRect();
+                const x = evt.originalEvent.clientX;
+                const y = evt.originalEvent.clientY;
+
+                //check if trashed item is in bounds
+                if( x >= trashBounds.left && x <= trashBounds.right && y >= trashBounds.top && y <= trashBounds.bottom ) {
+                    evt.item.remove();
+                } 
+            }
+
+        });
+
+        Sortable.create(document.getElementById('rmvHabit'), {
+            group: {
+                name: 'habits',
+                pull: false,
+                put: () => false
+            },
+
+            animation: 150, 
+        });
     }
 
     // handle form when user clicks submit
@@ -39,6 +93,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // get the habits in the order they ranked them
             document.querySelectorAll('#rankedHabits li').forEach(li => {
                 formData.habit_ranking.push(li.getAttribute('data-habit'));
+                console.log(li.getAttribute('data-habit'));
             });
 
             // show loading while we wait

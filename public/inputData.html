@@ -81,7 +81,7 @@
                 </div>
                 <!-- Ranking Importance of Habits -->
                 <div class="mb-4">
-                    <label class="form-label">Rank the importance of the following habits to you (Drag and Drop to reorder):</label>
+                    <label class="form-label">Rank the importance of the following habits to you (Drag and Drop to reorder and delete):</label>
                     <ul id="rankedHabits" class="list-group">
                         <li class="list-group-item d-flex justify-content-between align-items-center" data-habit="sleep">
                             Sleep <span class="bi bi-arrows-move"></span>
@@ -96,6 +96,11 @@
                             Screen Time <span class="bi bi-arrows-move"></span>
                         </li>
                     </ul>
+                    <div class="mb-2 textinput d-flex align-items-center">
+                        <input type="text" class="form-control" id="addtlHabit" placeholder="Other:" style="max-width: 92%;">
+                        <button type="button" id="addHabit" class="btn btn-info ms-2"><i class="bi bi-plus-circle-fill text-white"></i></button>
+                        <button type="button" id="rmvHabit" class="btn btn-danger ms-2"><i class="bi bi-trash-fill text-white"></i></button>
+                    </div>
                     <small class="text-muted">Top of the list matters most</small>
                 </div>
                 <button type="submit" class="btn btn-primary w-100">Submit</button>

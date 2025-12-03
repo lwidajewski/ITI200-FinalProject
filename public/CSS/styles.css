@@ -40,3 +40,23 @@ set input with strikethrough class ; set label to cb-label class
 .form-container {
     margin: 20px 0px 20px 0px;
 }
+
+.textinput {
+    padding: 8px;
+    margin-top: 10px;
+}
+
+.textinput > input {
+    background-color:#eeeeee;
+    border: 3px solid #a8a8a8;
+}
+
+#trash {
+    transition: transform 0.2s ease;
+}
+
+#rmvHabit:hover,
+#rmvHabit.drag-hover {
+    transform: scale(1.15);
+    cursor: pointer;
+}

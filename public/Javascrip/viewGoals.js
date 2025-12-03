@@ -33,7 +33,7 @@ async function deleteGoals(containerID) {
 
 async function getData() {
 
-    const url = "http://localhost/api/viewGoals";
+    const url = "/api/viewGoals";
 
     const request = await fetch(url);
 
